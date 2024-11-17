@@ -10,4 +10,4 @@ const connectDb = () => {
   }
 }
  
-  module.exports.connectDb = connectDb
+module.exports.connectDb = connectDb;

@@ -29,8 +29,22 @@ const userScheme = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Basket"
     },
-    admin: {
+    isAdmin: {
         type: Boolean,
         default: false
     }
 });
+
+userScheme.pre(`save`, async function (next) {
+    if (!this.isModified(`password`)) return next();
+    this.password = await bcryptjs.hash(this.password, 10);
+    next();
+});
+
+userScheme.methods.checkPassword = async function (password) {
+    return await bcryptjs.compare(password, this.password);
+};
+  
+const User = mongoose.model("User", userScheme);
+
+module.exports = User;
