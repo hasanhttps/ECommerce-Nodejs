@@ -20,7 +20,7 @@ const productScheme = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ("tech", "fashion", "cars", "other"),
+        enum: ["tech", "fashion", "cars", "other"],
         default: "other"
     },
     stock: {

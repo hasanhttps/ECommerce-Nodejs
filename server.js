@@ -9,14 +9,13 @@ const { rateLimit } = require("express-rate-limit");
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const basketRoutes = require('./routes/basketRoutes');
+const productRoutes = require('./routes/productRoutes');
 
 const app = express();
 require("dotenv").config();
 
 app.use(
-  cors({
-    origin: `http://localhost:${PORT}`
-  })
+  cors()
 )
 app.use(express.json());
 
@@ -30,8 +29,9 @@ const limiter = rateLimit({
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/baskets", basketRoutes);
+app.use("/products", productRoutes);
 
-app.use(limiter);
+app.use('/,', limiter);
 
 if (cluster.isMaster) {
   const CPUs = os.cpus().length;
